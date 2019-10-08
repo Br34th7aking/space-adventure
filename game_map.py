@@ -22,6 +22,10 @@ top_left_y = 150
 
 DEMO_OBJECTS = [images.floor, images.pillar, images.soil]
 
+lander_sector = random.randint(1, 24)
+LANDER_X = random.randint(2, 11)
+LANDER_Y = random.randint(2, 11)
+
 ##############################
 ##          MAP             ##
 ##############################
@@ -67,6 +71,92 @@ GAME_MAP += [
 
 # simple sanity check on map above to check data entry 
 assert len(GAME_MAP) - 1 == MAP_SIZE, "Map size and GAME_MAP don't match"
+
+objects = {
+        0: [images.floor, None, 'The floor is shiny and clean'],
+        1: [images.pillar, images.full_shadow, 'The wall is smooth and cold'],
+        2: [images.soil, None, "It's like a desert. Or should that be dessert?"],
+        3: [images.pillar_low, images.half_shadow, 'The wall is smooth and cold'],
+        4: [images.bed, images.half_shadow, 'A tidy and comfortable bed'],
+        5: [images.table, images.half_shadow, "It's made from strong plastic"],
+        6: [images.chair_left, None, 'A chair with a soft cushion'],
+        7: [images.chair_right, None, 'A chair with a soft cushion'],
+        8: [images.bookcase_tall, images.full_shadow, 'Bookshelves, stacked with reference books'],
+        9: [images.bookcase_small, images.half_shadow, 'Bookshelves, stacked with reference books'],
+        10: [images.cabinet, images.half_shadow, 'A small locker, for storing personal items'],
+        11: [images.desk_computer, images.half_shadow, 'A computer. Use it to run life support diagnostics'],
+        12: [images.plant,images.plant_shadow, 'A spaceberry plant, grown here'],
+        13: [images.electrical1, images.half_shadow, 'Electrical systems used or powering the space station'],
+        14: [images.electrical2, images.half_shadow, 'Electrical systems used or powering the space station'],
+        15: [images.cactus, images.cactus_shadow, 'Ouch! Careful on the cactus!'],
+        16: [images.shrub, images.shrub_shadow, "A space lettuce. A bit limp, but amazing it's grown here."],
+        17: [images.pipes1, images.pipes1_shadow, "Water purification pipes"],
+        18: [images.pipes2, images.pipes2_shadow, "Pipes for the life support systems"],
+        19: [images.pipes3, images.pipes3_shadow,  "Pipes for the life support systems"],
+        20: [images.door, images.door_shadow, "Safety Door. Opens automatically for astronauts in functioning spacesuits."],
+        21: [images.door, images.door_shadow, "The airlock door. For safety reasons, it requires two person operation."],
+        22: [images.door, images.door_shadow, "A locked door. It needs " + PLAYER_NAME + "'s access card"],
+        23: [images.door, images.door_shadow, "A locked door. It needs " + FRIEND1_NAME + "'s access card"],
+        24: [images.door, images.door_shadow, "A locked door. It needs " + FRIEND2_NAME + "'s access card"],
+        25: [images.door, images.door_shadow, "A locked door. It is opened from Main Mission Control"],
+        26: [images.door, images.door_shadow, "A locked door in the engineering bay."],
+        27: [],
+        28: [],
+        29: [],
+        30: [],
+        31: [],
+        32: [],
+        33: [],
+        34: [],
+        35: [],
+        36: [],
+        37: [],
+        38: [],
+        39: [],
+        40: [],
+        41: [],
+        42: [],
+        43: [],
+        44: [],
+        45: [],
+        46: [],
+        47: [],
+        48: [],
+        49: [],
+        50: [],
+        51: [],
+        52: [],
+        53: [],
+        54: [],
+        55: [],
+        56: [],
+        57: [],
+        58: [],
+        59: [],
+        60: [],
+        61: [],
+        62: [],
+        63: [],
+        64: [],
+        65: [],
+        66: [],
+        67: [],
+        68: [],
+        69: [],
+        70: [],
+        71: [],
+        72: [],
+        73: [],
+        74: [],
+        75: [],
+        76: [],
+        77: [],
+        78: [],
+        79: [],
+        80: [],
+        81: [],
+
+        }
 
 ##############################
 ##        make map          ##
@@ -147,10 +237,15 @@ def draw():
     global room_height, room_width, room_map
     generate_map()
     screen.clear()
-
+    room_map[2][4] = 7
+    room_map[2][6] = 6
+    room_map[1][1] = 8
+    room_map[1][2] = 9
+    room_map[1][8] = 12
+    room_map[1][9] = 9
     for y in range(room_height):
         for x in range(room_width):
-            image_to_draw = DEMO_OBJECTS[room_map[y][x]]
+            image_to_draw = objects[room_map[y][x]][0]
             screen.blit(image_to_draw, (top_left_x + (x * 30), top_left_y + (y * 30) - image_to_draw.get_height()))
 
 def movement():
